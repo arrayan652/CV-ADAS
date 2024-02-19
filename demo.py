@@ -14,14 +14,14 @@ from TrafficLaneDetector.ultrafastLaneDetector.perspectiveTransformation import 
 from TrafficLaneDetector.ultrafastLaneDetector.utils import LaneModelType, OffsetType, CurvatureType
 LOGGER = Logger(None, logging.INFO, logging.INFO )
 
-video_path = "/content/drive/MyDrive/test.mp4"
+video_path = "/content/drive/MyDrive/test5.mp4"
 lane_config = {
-	"model_path": "/content/tusimple_res18_fp16.trt",
+	"model_path": "/content/drive/MyDrivetusimple_res18_fp16.trt",
 	"model_type" : LaneModelType.UFLDV2_TUSIMPLE
 }
 
 object_config = {
-	"model_path": '/content/yolov5n-coco_fp16.trt',
+	"model_path": '/content/drive/MyDriveyolov5n-coco_fp16.trt',
 	"model_type" : ObjectModelType.YOLOV5,
 	"classes_path" : '/ObjectDetector/models/coco_label.txt',
 	"box_score" : 0.4,
