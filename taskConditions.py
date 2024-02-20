@@ -5,19 +5,13 @@ import ctypes
 from ObjectDetector.utils import CollisionType
 from TrafficLaneDetector.ultrafastLaneDetector.utils import OffsetType, CurvatureType
 
-STD_OUTPUT_HANDLE= -11
-std_out_handle = ctypes.windll.kernel32.GetStdHandle(STD_OUTPUT_HANDLE)
-def set_color(color, handle=std_out_handle):
-	bool = ctypes.windll.kernel32.SetConsoleTextAttribute(handle, color)
-	return bool
+import logging
+import colorama
+from colorama import Fore, Style
+
+colorama.init() 
 
 class Logger:
-	FOREGROUND_WHITE = 0x0007
-	FOREGROUND_BLUE = 0x01 # text color contains blue.
-	FOREGROUND_GREEN= 0x02 # text color contains green.
-	FOREGROUND_RED  = 0x04 # text color contains red.
-	FOREGROUND_YELLOW = FOREGROUND_RED | FOREGROUND_GREEN
-
 	def __init__(self, path, clevel = logging.DEBUG, Flevel = logging.DEBUG):
 		self.logger = logging.getLogger(path)
 		self.logger.setLevel(logging.DEBUG)
@@ -42,20 +36,14 @@ class Logger:
 	def debug(self,message):
 		self.logger.debug(message)
  
-	def info(self,message,color=FOREGROUND_BLUE):
-		set_color(color)
-		self.logger.info(message)
-		set_color(self.FOREGROUND_WHITE)
+	def info(self,message,color=Fore.BLUE):
+		print(color + message + Style.RESET_ALL)
  
-	def war(self,message,color=FOREGROUND_YELLOW):
-		set_color(color)
-		self.logger.warn(message)
-		set_color(self.FOREGROUND_WHITE)
+	def war(self,message,color=Fore.YELLOW):
+		print(color + message + Style.RESET_ALL)
  
-	def error(self,message,color=FOREGROUND_RED):
-		set_color(color)
-		self.logger.error(message)
-		set_color(self.FOREGROUND_WHITE)
+	def error(self,message,color=Fore.RED):
+		print(color + message + Style.RESET_ALL)
  
 	def cri(self,message):
 		self.logger.critical(message)
