@@ -11,42 +11,65 @@ from colorama import Fore, Style
 
 colorama.init() 
 
+class ColoredFormatter(logging.Formatter):
+    	def __init__(self, fmt=None, datefmt=None):
+        	super().__init__(fmt, datefmt)
+
+    	def format(self, record):
+        	levelname = record.levelname
+        	if levelname == 'DEBUG':
+            		color = Fore.BLUE
+        	elif levelname == 'INFO':
+            		color = Fore.GREEN
+        	elif levelname == 'WARNING':
+            		color = Fore.YELLOW
+        	elif levelname == 'ERROR' or levelname == 'CRITICAL':
+           		color = Fore.RED
+        	else:
+            		color = Fore.WHITE
+        	record.levelname = color + levelname + Style.RESET_ALL
+        	return super().format(record)
+
 class Logger:
-	def __init__(self, path, clevel = logging.DEBUG, Flevel = logging.DEBUG):
-		self.logger = logging.getLogger(path)
-		self.logger.setLevel(logging.DEBUG)
-		self.clevel = clevel
-		fmt = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s', '%Y-%m-%d %H:%M:%S')
-		#設置CMD日誌
-		sh = logging.StreamHandler()
-		sh.setFormatter(fmt)
-		sh.setLevel(clevel)
-		self.logger.addHandler(sh)
-		#設置文件日誌
-		if (path != None) :
-			fh = logging.FileHandler(path)
-			fh.setFormatter(fmt)
-			fh.setLevel(Flevel)
-			self.logger.addHandler(fh)
+    	def __init__(self, path, clevel=logging.DEBUG, Flevel=logging.DEBUG):
+        	self.logger = logging.getLogger(path)
+        	self.logger.setLevel(logging.DEBUG)
+        	self.clevel = clevel
+        	fmt = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s', '%Y-%m-%d %H:%M:%S')
 
-	def changelevel(self, clevel) :
-		self.clevel = clevel
-		self.logger.setLevel(clevel)
+        	# Set up colored StreamHandler
+        	sh = logging.StreamHandler()
+        	sh.setFormatter(ColoredFormatter())
+        	sh.setLevel(clevel)
+        	self.logger.addHandler(sh)
 
-	def debug(self,message):
-		self.logger.debug(message)
- 
-	def info(self,message,color=Fore.BLUE):
-		print(color + message + Style.RESET_ALL)
- 
-	def war(self,message,color=Fore.YELLOW):
-		print(color + message + Style.RESET_ALL)
- 
-	def error(self,message,color=Fore.RED):
-		print(color + message + Style.RESET_ALL)
- 
-	def cri(self,message):
-		self.logger.critical(message)
+        	# Set up file handler if path is provided
+        	if path is not None:
+            		fh = logging.FileHandler(path)
+            		fh.setFormatter(fmt)
+            		fh.setLevel(Flevel)
+            		self.logger.addHandler(fh)
+
+    	def changelevel(self, clevel):
+        	self.clevel = clevel
+        	self.logger.setLevel(clevel)
+
+    	def debug(self, message):
+        	self.logger.debug(message)
+
+    	def info(self, message, color=Fore.BLUE):
+        	self.logger.info(message)  # No print statement, relies on formatter
+
+    	def war(self, message, color=Fore.YELLOW):
+        	self.logger.warning(message)  # No print statement, relies on formatter
+
+    	def error(self, message, color=Fore.RED):
+        	self.logger.error(message)  # No print statement, relies on formatter
+
+    	def cri(self, message):
+        	self.logger.critical(message)
+
+
 
 class TaskConditions(object):
 	
