@@ -135,9 +135,9 @@ class TensorRTParameters():
 
 class YoloDetector(YoloLiteParameters):
 	_defaults = {
-		"model_path": './models/yolov5n-coco.onnx',
+		"model_path": '/content/drive/MyDrive/models/yolov5n_fp16.onnx',
 		"model_type" : ObjectModelType.YOLOV5,
-		"classes_path" : './models/coco_label.txt',
+		"classes_path" : '/content/ObjectDetector/models/coco_label.txt',
 		"box_score" : 0.4,
 		"box_nms_iou" : 0.45
 	}
@@ -415,11 +415,11 @@ if __name__ == "__main__":
 	import time
 	import sys
 
-	capture = cv2.VideoCapture(r"./temp/test.avi")
+	capture = cv2.VideoCapture(r"/content/drive/MyDrive/test5.mp4")
 	config = {
-		"model_path": 'models/yolov5m-coco.trt',
+		"model_path": '/content/drive/MyDrive/models/yolov5n-coco_fp16.trt',
 		"model_type" : ObjectModelType.YOLOV5,
-		"classes_path" : 'models/coco_label.txt',
+		"classes_path" : '/content/ObjectDetector/models/coco_label.txt',
 		"box_score" : 0.4,
 		"box_nms_iou" : 0.45,
 	}
