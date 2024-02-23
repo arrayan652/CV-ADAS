@@ -54,23 +54,23 @@ class ControlPanel(object):
 					}
 
 	def __init__(self):
-		collision_warning_img = cv2.imread('./assets/FCWS-warning.png', cv2.IMREAD_UNCHANGED)
+		collision_warning_img = cv2.imread('/content/assets/FCWS-warning.png', cv2.IMREAD_UNCHANGED)
 		self.collision_warning_img = cv2.resize(collision_warning_img, (100, 100))
-		collision_prompt_img = cv2.imread('./assets/FCWS-prompt.png', cv2.IMREAD_UNCHANGED)
+		collision_prompt_img = cv2.imread('/content/assets/FCWS-prompt.png', cv2.IMREAD_UNCHANGED)
 		self.collision_prompt_img = cv2.resize(collision_prompt_img, (100, 100))
-		collision_normal_img = cv2.imread('./assets/FCWS-normal.png', cv2.IMREAD_UNCHANGED)
+		collision_normal_img = cv2.imread('/content/assets/FCWS-normal.png', cv2.IMREAD_UNCHANGED)
 		self.collision_normal_img = cv2.resize(collision_normal_img, (100, 100))
-		left_curve_img = cv2.imread('./assets/left_turn.png', cv2.IMREAD_UNCHANGED)
+		left_curve_img = cv2.imread('/content/assets/left_turn.png', cv2.IMREAD_UNCHANGED)
 		self.left_curve_img = cv2.resize(left_curve_img, (200, 200))
-		right_curve_img = cv2.imread('./assets/right_turn.png', cv2.IMREAD_UNCHANGED)
+		right_curve_img = cv2.imread('/content/assets/right_turn.png', cv2.IMREAD_UNCHANGED)
 		self.right_curve_img = cv2.resize(right_curve_img, (200, 200))
-		keep_straight_img = cv2.imread('./assets/straight.png', cv2.IMREAD_UNCHANGED)
+		keep_straight_img = cv2.imread('/content/assets/straight.png', cv2.IMREAD_UNCHANGED)
 		self.keep_straight_img = cv2.resize(keep_straight_img, (200, 200))
-		determined_img = cv2.imread('./assets/warn.png', cv2.IMREAD_UNCHANGED)
+		determined_img = cv2.imread('/content/assets/warn.png', cv2.IMREAD_UNCHANGED)
 		self.determined_img = cv2.resize(determined_img, (200, 200))
-		left_lanes_img = cv2.imread('./assets/LTA-left_lanes.png', cv2.IMREAD_UNCHANGED)
+		left_lanes_img = cv2.imread('/content/assets/LTA-left_lanes.png', cv2.IMREAD_UNCHANGED)
 		self.left_lanes_img = cv2.resize(left_lanes_img, (300, 200))
-		right_lanes_img = cv2.imread('./assets/LTA-right_lanes.png', cv2.IMREAD_UNCHANGED)
+		right_lanes_img = cv2.imread('/content/assets/LTA-right_lanes.png', cv2.IMREAD_UNCHANGED)
 		self.right_lanes_img = cv2.resize(right_lanes_img, (300, 200))
 
 
