@@ -5,7 +5,7 @@ from onnxconverter_common import float16
 from pathlib import Path
 
 parser = argparse.ArgumentParser(description='https://github.com/jason-li-831202/Vehicle-CV-ADAS')
-parser.add_argument('--input_onnx_model', '-i', default='./ObjectDetector/models/yolov5m-coco_fp32.onnx', type=str, help='onnx model path.')
+parser.add_argument('--input_onnx_model', '-i', default='/content/drive/MyDrive/models/culane_res18.onnx', type=str, help='onnx model path.')
 
 
 if __name__ == "__main__":
