@@ -55,7 +55,7 @@ def convert_model(model_path, model_type=LaneModelType.UFLDV2_CULANE):
 	onnx_file_path = file.with_suffix('.onnx')
 
 	if ( "UFLDV2" in model_type.name) :
-		cfg = LaneV2Config("./ultrafastLaneDetector/exportLib/ultrafastLaneV2/configs/"+file.stem+".py")
+		cfg = LaneV2Config("./TraffictLaneDetector/ultrafastLaneDetector/exportLib/ultrafastLaneV2/configs/"+file.stem+".py")
 		assert cfg.backbone in ['18', '34', '50', '101', '152', '50next', '101next', '50wide', '101wide']
 	else :
 		cfg = LaneV1Config(model_type)
