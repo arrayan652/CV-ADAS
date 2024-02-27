@@ -23,7 +23,7 @@ lane_config = {
 object_config = {
 	"model_path": '/content/drive/MyDrive/models/yolov5n-coco_fp16.trt',
 	"model_type" : ObjectModelType.YOLOV5,
-	"classes_path" : '/ObjectDetector/models/coco_label.txt',
+	"classes_path" : '/content/ObjectDetector/models/coco_label.txt',
 	"box_score" : 0.4,
 	"box_nms_iou" : 0.45
 }
