@@ -16,12 +16,12 @@ LOGGER = Logger(None, logging.INFO, logging.INFO )
 
 video_path = "/content/drive/MyDrive/test5.mp4"
 lane_config = {
-	"model_path": "/content/drive/MyDrive/models/tusimple_res18_fp16.trt",
-	"model_type" : LaneModelType.UFLDV2_TUSIMPLE
+	"model_path": "/content/drive/MyDrive/models/culane_res18.trt",
+	"model_type" : LaneModelType.UFLDV2_CULANE
 }
 
 object_config = {
-	"model_path": '/content/drive/MyDrive/models/yolov5n-coco_fp16.trt',
+	"model_path": '/content/drive/MyDrive/models/yolov5n_fp16.trt',
 	"model_type" : ObjectModelType.YOLOV5,
 	"classes_path" : '/content/ObjectDetector/models/coco_label.txt',
 	"box_score" : 0.4,
