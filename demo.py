@@ -225,7 +225,7 @@ if __name__ == "__main__":
 
 	fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 	vout = cv2.VideoWriter(video_path[:-4]+'_out.mp4', fourcc , 30.0, (width, height))
-	cv2.namedWindow("ADAS Simulation", cv2.WINDOW_NORMAL)	
+	cv2.namedWindow("FYP Simulation", cv2.WINDOW_NORMAL)	
 	
 	#==========================================================
 	#					Initialize Class
