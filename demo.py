@@ -14,7 +14,7 @@ from TrafficLaneDetector.ultrafastLaneDetector.perspectiveTransformation import 
 from TrafficLaneDetector.ultrafastLaneDetector.utils import LaneModelType, OffsetType, CurvatureType
 LOGGER = Logger(None, logging.INFO, logging.INFO )
 
-video_path = "/content/drive/MyDrive/test5.mp4"
+video_path = "/content/drive/MyDrive/video/test5.mp4"
 lane_config = {
 	"model_path": "/content/drive/MyDrive/models/culane_res18.trt",
 	"model_type" : LaneModelType.UFLDV2_CULANE
