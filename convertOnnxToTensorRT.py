@@ -16,8 +16,8 @@ converts to tensorrt
 """
 
 parser = argparse.ArgumentParser(description='https://github.com/jason-li-831202/Vehicle-CV-ADAS')
-parser.add_argument('--input_onnx_model', '-i', default="./ObjectDetector/models/yolov8m-coco_fp16.onnx", type=str, help='Onnx model path.')
-parser.add_argument('--output_trt_model', '-o', default="./ObjectDetector/models/yolov8m-coco_fp16.trt", type=str, help='Tensorrt model path.')
+parser.add_argument('--input_onnx_model', '-i', default="/content/drive/MyDrive/models/culane_res18_fp16.onnx", type=str, help='Onnx model path.')
+parser.add_argument('--output_trt_model', '-o', default="/content/drive/MyDrive/models/culane_res18_fp16.trt", type=str, help='Tensorrt model path.')
 parser.add_argument('--verbose', action='store_true', default=False, help='TensorRT: verbose log')
 
 FILE = Path(__file__).resolve()
