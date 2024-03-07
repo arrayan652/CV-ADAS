@@ -16,7 +16,7 @@ LOGGER = Logger(None, logging.INFO, logging.INFO )
 
 video_path = "/content/drive/MyDrive/video/test5.mp4"
 lane_config = {
-	"model_path": "/content/drive/MyDrive/models/culane_res18.trt",
+	"model_path": "/content/drive/MyDrive/models/culane_res18_fp16.trt",
 	"model_type" : LaneModelType.UFLDV2_CULANE
 }
 
