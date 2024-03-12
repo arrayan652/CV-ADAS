@@ -9,20 +9,6 @@
     <a href="#"><img alt="Windows" src="https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white"></a>
 </p>
 
-Example scripts for the detection of lanes using the [ultra fast lane detection v2](https://github.com/cfzd/Ultra-Fast-Lane-Detection-v2) model in ONNX/TensorRT.
-
-Example scripts for the detection of objects using the [YOLOv5](https://github.com/ultralytics/yolov5)/[YOLOv5-lite](https://github.com/ppogg/YOLOv5-Lite)/[YOLOv8](https://github.com/ultralytics/ultralytics) model in ONNX/TensorRT.
-
-# ➤ Contents
-1) [Requirements](#Requirements)
-
-2) [Examples](#Examples)
-
-3) [Demo](#Demo)
-
-4) [License](#License)
-
-![!ADAS on video](https://github.com/jason-li-831202/Vehicle-CV-ADAS/blob/master/demo/demo.JPG)
 
 <h1 id="Requirements">➤ Requirements</h1>
 
@@ -84,37 +70,3 @@ Example scripts for the detection of objects using the [YOLOv5](https://github.c
    | Object          | `ObjectModelType.YOLOV5_LITE`    | Support yolov5lite-e/s/c/g model.                 | 
    | Object          | `ObjectModelType.YOLOV8`         | Support yolov8n/s/m/l/x model.                    | 
    
-   * Run :
-   
-    ```
-    python demo.py
-    ```
-
-<h1 id="Demo">➤ Demo</h1>
-
-* [***Demo Youtube Video***](https://www.youtube.com/watch?v=CHO0C1z5EWE)
-
-* ***Display***
-
-    ![!ADAS on video](https://github.com/jason-li-831202/Vehicle-CV-ADAS/blob/master/demo/demo-gif.gif)
-
-* ***Front Collision Warning System (FCWS)***
-
-    ![!FCWS](https://github.com/jason-li-831202/Vehicle-CV-ADAS/blob/master/demo/FCWS.jpg)
-
-* ***Lane Departure Warning System (LDWS)***
-
-    ![!LDWS](https://github.com/jason-li-831202/Vehicle-CV-ADAS/blob/master/demo/LDWS.jpg)
-
-* ***Lane Keeping Assist System (LKAS)***
-
-    ![!LKAS](https://github.com/jason-li-831202/Vehicle-CV-ADAS/blob/master/demo/LKAS.jpg)
-
-<h1 id="License">➤ License</h1>
-WiFi Analyzer is licensed under the GNU General Public License v3.0 (GPLv3).
-
-**GPLv3 License key requirements** :
-* Disclose Source
-* License and Copyright Notice
-* Same License
-* State Changes
