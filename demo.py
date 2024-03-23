@@ -25,7 +25,7 @@ object_config = {
 	"model_type" : ObjectModelType.YOLOV5,
 	"classes_path" : '/content/ObjectDetector/models/coco_label.txt',
 	"box_score" : 0.4,
-	"box_nms_iou" : 0.45
+	"box_nms_iou" : 0.6
 }
 
 # Priority : FCWS > LDWS > LKAS
