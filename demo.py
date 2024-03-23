@@ -54,24 +54,24 @@ class ControlPanel(object):
 					}
 
 	def __init__(self):
-		collision_warning_img = cv2.imread('/content/assets/FCWS-warning.png', cv2.IMREAD_UNCHANGED)
+		collision_warning_img = cv2.imread('./assets/FCWS-warning.png', cv2.IMREAD_UNCHANGED)
 		self.collision_warning_img = cv2.resize(collision_warning_img, (100, 100))
-		collision_prompt_img = cv2.imread('/content/assets/FCWS-prompt.png', cv2.IMREAD_UNCHANGED)
+		collision_prompt_img = cv2.imread('./assets/FCWS-prompt.png', cv2.IMREAD_UNCHANGED)
 		self.collision_prompt_img = cv2.resize(collision_prompt_img, (100, 100))
-		collision_normal_img = cv2.imread('/content/assets/FCWS-normal.png', cv2.IMREAD_UNCHANGED)
+		collision_normal_img = cv2.imread('./assets/FCWS-normal.png', cv2.IMREAD_UNCHANGED)
 		self.collision_normal_img = cv2.resize(collision_normal_img, (100, 100))
-		left_curve_img = cv2.imread('/content/assets/left_turn.png', cv2.IMREAD_UNCHANGED)
-		self.left_curve_img = cv2.resize(left_curve_img, (200, 200))
-		right_curve_img = cv2.imread('/content/assets/right_turn.png', cv2.IMREAD_UNCHANGED)
-		self.right_curve_img = cv2.resize(right_curve_img, (200, 200))
-		keep_straight_img = cv2.imread('/content/assets/straight.png', cv2.IMREAD_UNCHANGED)
-		self.keep_straight_img = cv2.resize(keep_straight_img, (200, 200))
-		determined_img = cv2.imread('/content/assets/warn.png', cv2.IMREAD_UNCHANGED)
-		self.determined_img = cv2.resize(determined_img, (200, 200))
-		left_lanes_img = cv2.imread('/content/assets/LTA-left_lanes.png', cv2.IMREAD_UNCHANGED)
-		self.left_lanes_img = cv2.resize(left_lanes_img, (300, 200))
-		right_lanes_img = cv2.imread('/content/assets/LTA-right_lanes.png', cv2.IMREAD_UNCHANGED)
-		self.right_lanes_img = cv2.resize(right_lanes_img, (300, 200))
+		left_curve_img = cv2.imread('./assets/left_turn.png', cv2.IMREAD_UNCHANGED)
+		self.left_curve_img = cv2.resize(left_curve_img, (160, 140))
+		right_curve_img = cv2.imread('./assets/right_turn.png', cv2.IMREAD_UNCHANGED)
+		self.right_curve_img = cv2.resize(right_curve_img, (160, 140))
+		keep_straight_img = cv2.imread('./assets/straight.png', cv2.IMREAD_UNCHANGED)
+		self.keep_straight_img = cv2.resize(keep_straight_img, (150, 150))
+		determined_img = cv2.imread('./assets/warn.png', cv2.IMREAD_UNCHANGED)
+		self.determined_img = cv2.resize(determined_img, (150, 150))
+		left_lanes_img = cv2.imread('./assets/LTA-left_lanes.png', cv2.IMREAD_UNCHANGED)
+		self.left_lanes_img = cv2.resize(left_lanes_img, (150, 100))
+		right_lanes_img = cv2.imread('./assets/LTA-right_lanes.png', cv2.IMREAD_UNCHANGED)
+		self.right_lanes_img = cv2.resize(right_lanes_img, (150, 100))
 
 
 		# FPS
@@ -114,10 +114,10 @@ class ControlPanel(object):
 		H = int(main_show.shape[0]* show_ratio)
 
 		min_birdview_show = cv2.resize(min_show, (W, H))
-		min_birdview_show = cv2.copyMakeBorder(min_birdview_show, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[0, 0, 0]) # 添加边框
+		min_birdview_show = cv2.copyMakeBorder(min_birdview_show, 10, 10, 10, 10, cv2.BORDER_CONSTANT, value=[0, 0, 0]) 
 		main_show[0:min_birdview_show.shape[0], -min_birdview_show.shape[1]: ] = min_birdview_show
 
-	def DisplaySignsPanel(self, main_show, offset_type, curvature_type) :
+	def DisplaySignsPanel(self, main_show, offset_type, curvature_type, collision_type, obect_infer_time, lane_infer_time) :
 		"""
 		Display Signs Panel on image.
 
@@ -131,48 +131,83 @@ class ControlPanel(object):
 		"""
 
 		W = 400
-		H = 365
+		H = 250
+		#H = 365
+
+		
 		widget = np.copy(main_show[:H, :W])
 		widget //= 2
-		widget[0:3,:] = [0, 0, 255]  # top
-		widget[-3:-1,:] = [0, 0, 255] # bottom
-		widget[:,0:3] = [0, 0, 255]  #left
-		widget[:,-3:-1] = [0, 0, 255] # right
+		widget[0:3,:] = [0, 0, 0]  # top
+		widget[-3:-1,:] = [0, 0, 0] # bottom
+		widget[:,0:3] = [0, 0, 0]  #left
+		widget[:,-3:-1] = [0, 0, 0] # right
 		main_show[:H, :W] = widget
 
 		if curvature_type == CurvatureType.UNKNOWN and offset_type in { OffsetType.UNKNOWN, OffsetType.CENTER } :
 			y, x = self.determined_img[:,:,3].nonzero()
-			main_show[y+10, x-100+W//2] = self.determined_img[y, x, :3]
+			#main_show[y+10, x-100+W//2] = self.determined_img[y, x, :3]
+			main_show[y+10, x+165+W] = self.determined_img[y, x, :3]
+			
 			self.curve_status = None
 
 		elif (curvature_type == CurvatureType.HARD_LEFT or self.curve_status== "Left") and \
 			(curvature_type not in { CurvatureType.EASY_RIGHT, CurvatureType.HARD_RIGHT }) :
 			y, x = self.left_curve_img[:,:,3].nonzero()
-			main_show[y+10, x-100+W//2] = self.left_curve_img[y, x, :3]
+			#main_show[y+10, x-100+W//2] = self.left_curve_img[y, x, :3]
+			main_show[y+10, x+150+W] = self.left_curve_img[y, x, :3]
 			self.curve_status = "Left"
 
 		elif (curvature_type == CurvatureType.HARD_RIGHT or self.curve_status== "Right") and \
 			(curvature_type not in { CurvatureType.EASY_LEFT, CurvatureType.HARD_LEFT }) :
 			y, x = self.right_curve_img[:,:,3].nonzero()
-			main_show[y+10, x-100+W//2] = self.right_curve_img[y, x, :3]
+			#main_show[y+10, x-100+W//2] = self.right_curve_img[y, x, :3]
+			main_show[y+10, x+150+W] = self.right_curve_img[y, x, :3]
 			self.curve_status = "Right"
 		
+		if (collision_type == CollisionType.WARNING) :
+			y, x = self.collision_warning_img[:,:,3].nonzero()
+			#main_show[H+y+50, (x-W-5)] = self.collision_warning_img[y, x, :3]
+			main_show[y+100, x+50+W//2] = self.collision_warning_img[y, x, :3]
+
+		elif (collision_type == CollisionType.PROMPT) :
+			y, x =self.collision_prompt_img[:,:,3].nonzero()
+			#main_show[H+y+50, (x-W-5)] = self.collision_prompt_img[y, x, :3]
+			main_show[y+100, x+50+W//2] = self.collision_prompt_img[y, x, :3]
+
+		elif (collision_type == CollisionType.NORMAL) :
+			y, x = self.collision_normal_img[:,:,3].nonzero()
+			#main_show[H+y+50, (x-W-5)] = self.collision_normal_img[y, x, :3]
+			main_show[y+100, x+50+W//2] = self.collision_normal_img[y, x, :3]
+
 		
 		if ( offset_type == OffsetType.RIGHT ) :
 			y, x = self.left_lanes_img[:,:,2].nonzero()
-			main_show[y+10, x-150+W//2] = self.left_lanes_img[y, x, :3]
+			#main_show[y+10, x-150+W//2] = self.left_lanes_img[y, x, :3]
+			main_show[y+10, x+165+W] = self.left_lanes_img[y, x, :3]
+
 		elif ( offset_type == OffsetType.LEFT ) :
 			y, x = self.right_lanes_img[:,:,2].nonzero()
-			main_show[y+10, x-150+W//2] = self.right_lanes_img[y, x, :3]
+			#main_show[y+10, x-150+W//2] = self.right_lanes_img[y, x, :3]
+			main_show[y+10, x+165+W] = self.right_lanes_img[y, x, :3]
+
 		elif curvature_type == CurvatureType.STRAIGHT or self.curve_status == "Straight" :
 			y, x = self.keep_straight_img[:,:,3].nonzero()
-			main_show[y+10, x-100+W//2] = self.keep_straight_img[y, x, :3]
+			#main_show[y+10, x-100+W//2] = self.keep_straight_img[y, x, :3]
+			main_show[y+10, x+165+W] = self.keep_straight_img[y, x, :3]
 			self.curve_status = "Straight"
 
 		self._updateFPS()
-		cv2.putText(main_show, "LDWS : " + offset_type.value, (10, 240), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.7, color=self.OffsetDict[offset_type], thickness=2)
-		cv2.putText(main_show, "LKAS : " + curvature_type.value, org=(10, 280), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.7, color=self.CurvatureDict[curvature_type], thickness=2)
-		cv2.putText(main_show, "FPS  : %.2f" % self.fps, (10, widget.shape[0] - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2, cv2.LINE_AA)
+		cv2.putText(main_show, "LDWS : " + offset_type.value, (10, 40), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.7, color=self.OffsetDict[offset_type], thickness=2)
+		cv2.putText(main_show, "LKAS : " + curvature_type.value, org=(10, 80), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.7, color=self.CurvatureDict[curvature_type], thickness=2)
+		cv2.putText(main_show, "FCWS : " + collision_type.value, (10, 120), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.6, color=self.CollisionDict[collision_type], thickness=2)
+		
+		cv2.putText(main_show, "object-infer : %.2f s" % obect_infer_time, (10, 160), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (230, 230, 230), 1, cv2.LINE_AA)
+		cv2.putText(main_show, "lane-infer : %.2f s" % lane_infer_time, (10, 180), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (230, 230, 230), 1, cv2.LINE_AA)
+		cv2.putText(main_show, "FPS  : %.2f" % self.fps, (10, 220), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2, cv2.LINE_AA)
+		#cv2.putText(main_show, "FPS  : %.2f" % self.fps, (10, widget.shape[0] - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2, cv2.LINE_AA)
+		
+
+
 
 	def DisplayCollisionPanel(self, main_show, collision_type, obect_infer_time, lane_infer_time, show_ratio=0.25) :
 		"""
@@ -293,14 +328,14 @@ if __name__ == "__main__":
 			distanceDetector.DrawDetectedOnFrame(frame_show)
 
 			displayPanel.DisplayBirdViewPanel(frame_show, birdview_show)
-			displayPanel.DisplaySignsPanel(frame_show, analyzeMsg.offset_msg, analyzeMsg.curvature_msg)	
-			displayPanel.DisplayCollisionPanel(frame_show, analyzeMsg.collision_msg, obect_infer_time, lane_infer_time )
+			displayPanel.DisplaySignsPanel(frame_show, analyzeMsg.offset_msg, analyzeMsg.curvature_msg,analyzeMsg.collision_msg, obect_infer_time, lane_infer_time)	
+			#displayPanel.DisplayCollisionPanel(frame_show, analyzeMsg.collision_msg, obect_infer_time, lane_infer_time )
 			cv2.imshow("ADAS Simulation", frame_show)
 
 		else:
 			break
 		vout.write(frame_show)	
-		if cv2.waitKey(1) == ord('q'): # Press key q to stop
+		if cv2.waitKey(1) == 27:  #ord('q'): #Press key q to stop, press esc to stop
 			break
 
 	vout.release()
