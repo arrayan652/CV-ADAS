@@ -407,7 +407,7 @@ class YoloDetector(YoloLiteParameters):
 				else :
 					cv2.rectangle(frame_show, c1, c2, (0, 0, 0), -1, cv2.LINE_AA)
 					self.cornerRect(frame_show, box, colorR= (0, 0, 0), colorC= (0, 0, 0) )
-				cv2.putText(frame_show, label, (xmin, ymin - 5), cv2.FONT_HERSHEY_SIMPLEX, tl / 3, (255, 255, 255), 2)
+				cv2.putText(frame_show, label, (xmin, ymin - 5), cv2.FONT_ITALIC, tl / 3, (255, 255, 255), 2)
 		
 
 
@@ -451,5 +451,5 @@ if __name__ == "__main__":
 			frame_count = 0
 			start = time.time()
 
-		cv2.putText(frame, "FPS: %.2f" % fps, (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+		cv2.putText(frame, "FPS: %.2f" % fps, (10, 25), cv2.FONT_ITALIC, 1, (0, 0, 255), 2)
 		cv2.imshow("output", frame)
